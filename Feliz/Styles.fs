@@ -257,6 +257,58 @@ type style =
     /// Sets the flex grow factor of a flex item main size. It specifies how much of the remaining
     /// space in the flex container should be assigned to the item (the flex grow factor).
     static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
+    /// Sets the width of each individual grid column in pixels.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 199.5px 99.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [199.5;99.5;99.5]
+    /// ```
+    static member inline gridTemplateColumns(value: float list) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of each individual grid column in pixels.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 199.5px 99.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [|199.5;99.5;99.5|]
+    /// ```
+    static member inline gridTemplateColumns(value: float[]) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of each individual grid column in pixels.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [100; 200; 100]
+    /// ```
+    static member inline gridTemplateColumns(value: int list) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of each individual grid column in pixels.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [|100; 200; 100|]
+    /// ```
+    static member inline gridTemplateColumns(value: int[]) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of each individual grid column.
     /// 
     /// **CSS**
@@ -323,6 +375,22 @@ type style =
     /// 
     /// **CSS**
     /// ```css
+    /// grid-template-columns: repeat(3, 99.5px);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 99.5)
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: float) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid columns to the defined width in pixels
+    /// 
+    /// **CSS**
+    /// ```css
     /// grid-template-columns: repeat(3, 100px);
     /// ```
     /// **F#**
@@ -330,7 +398,11 @@ type style =
     /// style.gridTemplateColumns (3, 100)
     /// ```
     static member inline gridTemplateColumns(count: int, size: int) =
-        Interop.mkStyle "gridTemplateColumns" (sprintf "repeat(%i, %spx)" count (unbox<string> size))
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
     /// Sets the width of a number of grid columns to the defined width
     /// 
     /// **CSS**
@@ -342,7 +414,28 @@ type style =
     /// style.gridTemplateColumns (3, (length.fr 1))
     /// ```
     static member inline gridTemplateColumns(count: int, size: ICssUnit) =
-        Interop.mkStyle "gridTemplateColumns" (sprintf "repeat(%i, %s)" count (unbox<string> size))
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + ")"
+        )
+    /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 1.5px [col-start]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 1.5, "col-start")
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: float, areaName: string) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
     /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
     /// 
     /// **CSS**
@@ -354,7 +447,12 @@ type style =
     /// style.gridTemplateColumns (3, 10, "col-start")
     /// ```
     static member inline gridTemplateColumns(count: int, size: int, areaName: string) =
-        Interop.mkStyle "gridTemplateColumns" (sprintf "repeat(%i, %spx [%s])" count (unbox<string> size) areaName)
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
     /// Sets the width of a number of grid columns to the defined width, as well as naming the lines between them
     /// 
     /// **CSS**
@@ -366,19 +464,50 @@ type style =
     /// style.gridTemplateColumns (3, (length.fr 1), "col-start")
     /// ```
     static member inline gridTemplateColumns(count: int, size: ICssUnit, areaName: string) =
-        Interop.mkStyle "gridTemplateColumns" (sprintf "repeat(%i, %s [%s])" count (unbox<string> size) areaName)
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + " [" +
+            areaName + "])"
+        )
     /// Sets the width of a number of grid rows to the defined width in pixels
     /// 
     /// **CSS**
     /// ```css
-    /// grid-template-rows: 100px 200px 100px;
+    /// grid-template-rows: 99.5px 199.5px 99.5px;
     /// ``` 
     /// **F#
     /// ```f#
-    /// style.gridTemplateRows [100; 200; 100]
+    /// style.gridTemplateRows [99.5; 199.5; 99.5]
+    /// ```
+    static member inline gridTemplateRows(value: float list) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 99.5px 199.5px 99.5px;
+    /// ``` 
+    /// **F#
+    /// ```f#
+    /// style.gridTemplateRows [|99.5; 199.5; 99.5|]
+    /// ```
+    static member inline gridTemplateRows(value: float[]) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of a number of grid rows to the defined width
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 1fr 10% 250px auto;
+    /// ``` 
+    /// **F#
+    /// ```f#
+    /// style.gridTemplateRows [(length.fr 1); (length.percent 10); (length.px 250); length.auto]
     /// ```
     static member inline gridTemplateRows(value: int list) =
-        let addPixels = sprintf "%spx"
+        let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of a number of grid rows to the defined width in pixels
     /// 
@@ -391,7 +520,7 @@ type style =
     /// style.gridTemplateRows [|100; 200; 100|]
     /// ```
     static member inline gridTemplateRows(value: int[]) =
-        let addPixels = sprintf "%spx"
+        let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of a number of grid rows to the defined width
     /// 
@@ -457,6 +586,22 @@ type style =
     /// 
     /// **CSS**
     /// ```css
+    /// grid-template-rows: repeat(3, 199.5);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 199.5)
+    /// ```
+    static member inline gridTemplateRows(count: int, size: float) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    /// 
+    /// **CSS**
+    /// ```css
     /// grid-template-rows: repeat(3, 100px);
     /// ```
     /// **F#**
@@ -464,7 +609,11 @@ type style =
     /// style.gridTemplateRows (3, 100)
     /// ```
     static member inline gridTemplateRows(count: int, size: int) =
-        Interop.mkStyle "gridTemplateRows" (sprintf "repeat(%i, %spx)" count (unbox<string> size))
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
     /// Sets the width of a number of grid rows to the defined width
     /// 
     /// **CSS**
@@ -476,7 +625,28 @@ type style =
     /// style.gridTemplateRows (3, (length.percent 10))
     /// ```
     static member inline gridTemplateRows(count: int, size: ICssUnit) =
-        Interop.mkStyle "gridTemplateRows" (sprintf "repeat(%i, %s)" count (unbox<string> size))
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + ")"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 75.5, [row]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 75.5, "row")
+    /// ```
+    static member inline gridTemplateRows(count: int, size: float, areaName: string) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
     /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
     /// 
     /// **CSS**
@@ -488,7 +658,12 @@ type style =
     /// style.gridTemplateRows (3, 100, "row")
     /// ```
     static member inline gridTemplateRows(count: int, size: int, areaName: string) =
-        Interop.mkStyle "gridTemplateRows" (sprintf "repeat(%i, %spx [%s])" count (unbox<string> size) areaName)
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
     /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
     /// 
     /// **CSS**
@@ -500,7 +675,12 @@ type style =
     /// style.gridTemplateRows (3, (length.percent 10), "row")
     /// ```
     static member inline gridTemplateRows(count: int, size: ICssUnit, areaName: string) =
-        Interop.mkStyle "gridTemplateRows" (sprintf "repeat(%i, %s [%s])" count (unbox<string> size) areaName)
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + " [" +
+            areaName + "])"
+        )
     /// 2D representation of grid layout as blocks with names
     /// 
     /// **CSS**
@@ -519,7 +699,7 @@ type style =
     /// ]
     /// ```
     static member inline gridTemplateAreas(value: string list list) =
-        let wrapLine = sprintf "'%s'"
+        let wrapLine = (fun x -> "'" + x + "'")
         let lines = List.map (String.concat " " >> wrapLine) value
         let block = String.concat "\n" lines
         Interop.mkStyle "gridTemplateAreas" block
@@ -541,7 +721,7 @@ type style =
     /// |]
     /// ```
     static member inline gridTemplateAreas(value: string[][]) =
-        let wrapLine = sprintf "'%s'"
+        let wrapLine = (fun x -> "'" + x + "'")
         let lines = Array.map (String.concat " " >> wrapLine) value
         let block = String.concat "\n" lines
         Interop.mkStyle "gridTemplateAreas" block
@@ -556,7 +736,7 @@ type style =
     /// style.gridTemplateAreas ["first"; "second"; "third"; "fourth"]
     /// ```
     static member inline gridTemplateAreas(value: string list) =
-        let wrapLine = sprintf "'%s'"
+        let wrapLine = (fun x -> "'" + x + "'")
         let block = (String.concat " " >> wrapLine) value
         Interop.mkStyle "gridTemplateAreas" block
     /// One-dimensional alternative to the nested list. For column-based layouts
@@ -570,9 +750,22 @@ type style =
     /// style.gridTemplateAreas [|"first"; "second"; "third"; "fourth"|]
     /// ```
     static member inline gridTemplateAreas(value: string[]) =
-        let wrapLine = sprintf "'%s'"
+        let wrapLine = (fun x -> "'" + x + "'")
         let block = (String.concat " " >> wrapLine) value
         Interop.mkStyle "gridTemplateAreas" block
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the columns.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// column-gap: 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.columnGap 1.5
+    /// ```
+    static member inline columnGap(value: float) =
+        Interop.mkStyle "columnGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the columns.
     /// 
@@ -599,6 +792,19 @@ type style =
     /// ```
     static member inline columnGap(value: ICssUnit) =
         Interop.mkStyle "columnGap" value
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows.
+    /// 
+    /// **CSS**
+    /// ```css
+    /// row-gap: 2.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.rowGap 2.5
+    /// ```
+    static member inline rowGap(value: float) =
+        Interop.mkStyle "rowGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows.
     /// 
@@ -636,7 +842,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap (length.em 1) (length.em 2)
+    /// style.gap ((length.em 1), (length.em 2))
     /// ```
     static member inline gap(rowGap: ICssUnit, columnGap: ICssUnit) =
         Interop.mkStyle "gap" (
@@ -650,11 +856,29 @@ type style =
     /// 
     /// **CSS**
     /// ```css
+    /// gap: 1em 3.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap ((length.em 1), 3.5)
+    /// ```
+    static member inline gap(rowGap: ICssUnit, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + " " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    /// 
+    /// _Shorthand for `rowGap` and `columnGap`_
+    /// 
+    /// **CSS**
+    /// ```css
     /// gap: 1em 10px;
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap (length.em 1) 10
+    /// style.gap ((length.em 1), 10)
     /// ```
     static member inline gap(rowGap: ICssUnit, columnGap: int) =
         Interop.mkStyle "gap" (
@@ -672,7 +896,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap 10 (length.em 1)
+    /// style.gap (10, (length.em 1))
     /// ```
     static member inline gap(rowGap: int, columnGap: ICssUnit) =
         Interop.mkStyle "gap" (
@@ -686,13 +910,85 @@ type style =
     /// 
     /// **CSS**
     /// ```css
+    /// gap: 10px 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (10, 1.5)
+    /// ```
+    static member inline gap(rowGap: int, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    /// 
+    /// _Shorthand for `rowGap` and `columnGap`_
+    /// 
+    /// **CSS**
+    /// ```css
     /// gap: 10px 15px;
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap 10 15
+    /// style.gap (10, 15)
     /// ```
     static member inline gap(rowGap: int, columnGap: int) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    /// 
+    /// _Shorthand for `rowGap` and `columnGap`_
+    /// 
+    /// **CSS**
+    /// ```css
+    /// gap: 2.5px 15%;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (2.5, (length.percent 15))
+    /// ```
+    static member inline gap(rowGap: float, columnGap: ICssUnit) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap)
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    /// 
+    /// _Shorthand for `rowGap` and `columnGap`_
+    /// 
+    /// **CSS**
+    /// ```css
+    /// gap: 1.5px 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (1.5, 1.5)
+    /// ```
+    static member inline gap(rowGap: float, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    /// 
+    /// _Shorthand for `rowGap` and `columnGap`_
+    /// 
+    /// **CSS**
+    /// ```css
+    /// gap: 1.5px 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (1.5, 10)
+    /// ```
+    static member inline gap(rowGap: float, columnGap: int) =
         Interop.mkStyle "gap" (
             (unbox<string> rowGap) + "px " +
             (unbox<string> columnGap) + "px"
@@ -793,7 +1089,7 @@ type style =
     /// - span over a specified number of lines
     /// 
     /// 
-    /// When there are multiple named lines with the same name, you can specify which one by count
+    /// _When there are multiple named lines with the same name, you can specify which one by count_
     /// 
     /// **CSS**
     /// ```css
@@ -933,7 +1229,7 @@ type style =
     /// - span over a specified number of lines
     /// 
     /// 
-    /// When there are multiple named lines with the same name, you can specify which one by count
+    /// _When there are multiple named lines with the same name, you can specify which one by count_
     /// 
     /// **CSS**
     /// ```css
@@ -1351,6 +1647,24 @@ type style =
     /// ```
     static member inline gridArea(value: string) =
         Interop.mkStyle "gridArea" value
+    /// Shorthand for `grid-template-areas`, `grid-template-columns` and `grid-template-rows`.
+    /// 
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template
+    /// 
+    /// **CSS**
+    /// ```css
+    /// grid-template:  [header-top] 'a a a'      [header-bottom]
+    ///                   [main-top] 'b b b' 1fr  [main-bottom]
+    ///                              / auto 1fr auto;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplate "[header-top] 'a a a'      [header-bottom]\n" +
+    ///                      "[main-top] 'b b b' 1fr  [main-bottom]\n" +
+    ///                                "/ auto 1fr auto"
+    /// ```
+    static member inline gridTemplate(value: string) =
+        Interop.mkStyle "gridTemplate" value
     /// Sets the length of time a transition animation should take to complete. By default, the
     /// value is 0s, meaning that no animation will occur.
     static member inline transitionDuration(timespan: TimeSpan) =

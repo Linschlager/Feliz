@@ -1,6 +1,7 @@
-namespace Feliz.Styles
+namespace Feliz
 
 open Fable.Core
+open Feliz.Styles
 
 [<Erase>]
 type grid =
