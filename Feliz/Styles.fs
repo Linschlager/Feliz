@@ -317,7 +317,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// gridTemplateColumns: [(length.fr 1); (length.fr 1); (length.fr 2)]
+    /// gridTemplateColumns: [length.fr 1; length.fr 1; length.fr 2]
     /// ```
     static member inline gridTemplateColumns(value: ICssUnit list) =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string list> value))
@@ -329,7 +329,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// gridTemplateColumns: [|(length.fr 1); (length.fr 1); (length.fr 2)|]
+    /// gridTemplateColumns: [|length.fr 1; length.fr 1; length.fr 2|]
     /// ```
     static member inline gridTemplateColumns(value: ICssUnit[]) =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string[]> value))
@@ -411,7 +411,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridTemplateColumns (3, (length.fr 1))
+    /// style.gridTemplateColumns (3, length.fr 1)
     /// ```
     static member inline gridTemplateColumns(count: int, size: ICssUnit) =
         Interop.mkStyle "gridTemplateColumns" (
@@ -461,7 +461,7 @@ type style =
     /// ``` 
     /// **F#
     /// ```f#
-    /// style.gridTemplateColumns (3, (length.fr 1), "col-start")
+    /// style.gridTemplateColumns (3, length.fr 1, "col-start")
     /// ```
     static member inline gridTemplateColumns(count: int, size: ICssUnit, areaName: string) =
         Interop.mkStyle "gridTemplateColumns" (
@@ -504,7 +504,7 @@ type style =
     /// ``` 
     /// **F#
     /// ```f#
-    /// style.gridTemplateRows [(length.fr 1); (length.percent 10); (length.px 250); length.auto]
+    /// style.gridTemplateRows [length.fr 1; length.percent 10; length.px 250; length.auto]
     /// ```
     static member inline gridTemplateRows(value: int list) =
         let addPixels = (fun x -> x + "px")
@@ -530,7 +530,7 @@ type style =
     /// ``` 
     /// **F#
     /// ```f#
-    /// style.gridTemplateRows [(length.fr 1); (length.percent 10); (length.px 250); length.auto]
+    /// style.gridTemplateRows [length.fr 1; length.percent 10; length.px 250; length.auto]
     /// ```
     static member inline gridTemplateRows(value: ICssUnit list) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string list> value))
@@ -542,7 +542,7 @@ type style =
     /// ``` 
     /// **F#
     /// ```f#
-    /// style.gridTemplateRows [|(length.fr 1); (length.percent 10); (length.px 250); length.auto|]
+    /// style.gridTemplateRows [|length.fr 1; length.percent 10; length.px 250; length.auto|]
     /// ```
     static member inline gridTemplateRows(value: ICssUnit[]) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string[]> value))
@@ -622,7 +622,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridTemplateRows (3, (length.percent 10))
+    /// style.gridTemplateRows (3, length.percent 10)
     /// ```
     static member inline gridTemplateRows(count: int, size: ICssUnit) =
         Interop.mkStyle "gridTemplateRows" (
@@ -842,7 +842,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap ((length.em 1), (length.em 2))
+    /// style.gap (length.em 1, length.em 2)
     /// ```
     static member inline gap(rowGap: ICssUnit, columnGap: ICssUnit) =
         Interop.mkStyle "gap" (
@@ -860,7 +860,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap ((length.em 1), 3.5)
+    /// style.gap (length.em 1, 3.5)
     /// ```
     static member inline gap(rowGap: ICssUnit, columnGap: float) =
         Interop.mkStyle "gap" (
@@ -896,7 +896,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap (10, (length.em 1))
+    /// style.gap (10, length.em 1)
     /// ```
     static member inline gap(rowGap: int, columnGap: ICssUnit) =
         Interop.mkStyle "gap" (
@@ -950,7 +950,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gap (2.5, (length.percent 15))
+    /// style.gap (2.5, length.percent 15)
     /// ```
     static member inline gap(rowGap: float, columnGap: ICssUnit) =
         Interop.mkStyle "gap" (
@@ -1392,7 +1392,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn (1, (grid.span 2))
+    /// style.gridColumn (1, grid.span 2)
     /// ```
     static member inline gridColumn(start: int, end': IGridSpan) = Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1412,7 +1412,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn ((grid.span 2), "col-3")
+    /// style.gridColumn (grid.span 2, "col-3")
     /// ```
     static member inline gridColumn(start: IGridSpan, end': string) = Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + end')
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1432,7 +1432,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn ((grid.span 2), 4)
+    /// style.gridColumn (grid.span 2, 4)
     /// ```
     static member inline gridColumn(start: IGridSpan, end': int) = Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1452,7 +1452,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn ((grid.span 2), (grid.span 3))
+    /// style.gridColumn (grid.span 2, grid.span 3)
     /// ```
     static member inline gridColumn(start: IGridSpan, end': IGridSpan) = Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1512,7 +1512,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow ("row-2", (span 2))
+    /// style.gridRow ("row-2", grid.span 2)
     /// ```
     static member inline gridRow(start: string, end': IGridSpan) = Interop.mkStyle "gridRow" (start + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1572,7 +1572,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow (2, (grid.span 3))
+    /// style.gridRow (2, grid.span 3)
     /// ```
     static member inline gridRow(start: int, end': IGridSpan) = Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1592,7 +1592,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow ((grid.span 2), "row-4")
+    /// style.gridRow (grid.span 2, "row-4")
     /// ```
     static member inline gridRow(start: IGridSpan, end': string) = Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + end')
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1612,7 +1612,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow ((grid.span 2), (grid.span 3))
+    /// style.gridRow (grid.span 2, grid.span 3)
     /// ```
     static member inline gridRow(start: IGridSpan, end': int) = Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
@@ -1632,7 +1632,7 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow ((grid.span 2), (grid.span 3))
+    /// style.gridRow (grid.span 2, grid.span 3)
     /// ```
     static member inline gridRow(start: IGridSpan, end': IGridSpan) = Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Sets the named grid area the item is placed in
