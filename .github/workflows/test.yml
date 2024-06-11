@@ -1,0 +1,29 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master", "github-actions-1" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore NPM dependencies
+        run: npm install --legacy-peer-deps
+      - name: Restore tool dependencies
+        run: dotnet tool restore
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build Fable Tests using webpack
+        run: dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.tests.js
+      - name: Run tests using Mocha
+        run: node_modules/.bin/mocha ./public-tests/tests.js

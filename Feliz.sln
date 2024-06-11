@@ -23,23 +23,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
-		build.cmd = build.cmd
-		build.fsx = build.fsx
-		build.sh = build.sh
-		clean-cache.sh = clean-cache.sh
 		LICENSE = LICENSE
 		package-lock.json = package-lock.json
 		package.json = package.json
-		paket-install.sh = paket-install.sh
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
 		publish.js = publish.js
 		README.md = README.md
 		webpack.config.js = webpack.config.js
 		webpack.tests.js = webpack.tests.js
+		.github\workflows\test.yml = .github\workflows\test.yml
 	EndProjectSection
-EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "HeadlessTestsRunner", "HeadlessTestsRunner\HeadlessTestsRunner.fsproj", "{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Feliz.UseDeferred", "Feliz.UseDeferred\Feliz.UseDeferred.fsproj", "{47E6DD26-5932-43AE-A968-A8EF71444C97}"
 EndProject
@@ -167,18 +161,6 @@ Global
 		{74AC6D90-9BF7-44B7-ACDD-6C7616CE07E7}.Release|x64.Build.0 = Release|Any CPU
 		{74AC6D90-9BF7-44B7-ACDD-6C7616CE07E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{74AC6D90-9BF7-44B7-ACDD-6C7616CE07E7}.Release|x86.Build.0 = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|x64.Build.0 = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Debug|x86.Build.0 = Debug|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|x64.ActiveCfg = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|x64.Build.0 = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|x86.ActiveCfg = Release|Any CPU
-		{F6F051DB-258D-4DA6-994F-5C0C9AD81A7F}.Release|x86.Build.0 = Release|Any CPU
 		{47E6DD26-5932-43AE-A968-A8EF71444C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47E6DD26-5932-43AE-A968-A8EF71444C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E6DD26-5932-43AE-A968-A8EF71444C97}.Debug|x64.ActiveCfg = Debug|Any CPU

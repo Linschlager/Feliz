@@ -4,7 +4,7 @@
         "publish-docs": "npm run build && node publish.js",
         "start": "dotnet tool restore && dotnet fable watch docs --noCache --exclude Feliz.CompilerPlugins --run webpack-dev-server",
         "build": "dotnet tool restore && dotnet fable docs --noCache --exclude Feliz.CompilerPlugins --run webpack --mode production",
-        "test": "dotnet tool restore && dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.tests.js && dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
+        "test": "dotnet tool restore && dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.tests.js && mocha ./public-tests/tests.js"
     },
     "repository": {
         "type": "git",
@@ -25,9 +25,9 @@
         "sass-loader": "^10.1.1",
         "source-map-loader": "^2.0.1",
         "style-loader": "^2.0.0",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0"
+        "webpack": "^5.92.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.4"
     },
     "dependencies": {
         "@inocan/rough-viz": "^1.2.0",
