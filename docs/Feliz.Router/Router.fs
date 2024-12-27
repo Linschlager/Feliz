@@ -6,14 +6,13 @@ open Elmish
 open Fable.Core
 open Fable.Core.JsInterop
 open Feliz
-open Feliz.UseListener
+open Feliz.Listeners
 open System
 
 type IUrlSearchParamters =
     abstract entries : unit -> seq<string array>
 
 /// Determines whether the router will push a new entry to the history of modify the current one.
-[<RequireQualifiedAccess>]
 type HistoryMode =
     /// A new history will be added to the entries such that if the user clicks the back button,
     /// the previous page will be shown, this is the default bahavior of the router.
@@ -22,7 +21,6 @@ type HistoryMode =
     | ReplaceState = 2
 
 /// Determines whether the router will use path or hash based routes
-[<RequireQualifiedAccess>]
 type RouteMode =
     | Hash = 1
     | Path = 2
