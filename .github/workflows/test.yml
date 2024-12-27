@@ -1,0 +1,27 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+      - name: Setup Node.js 22.12.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Restore dependencies
+        run: |
+          dotnet tool restore
+          dotnet paket restore
+          dotnet restore
+          npm install
+      - name: Test
+        run: npm test

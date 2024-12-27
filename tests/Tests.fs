@@ -1208,12 +1208,11 @@ let felizTests = testList "Feliz Tests" [
 #endif
 ]
 
-[<EntryPoint>]
-let main (args: string []) =
-    let allTests = testList "All Tests" [
-        felizTests
-        PropHelperTests.propHelpersTests
-        DelayTests.delayTests
-    ]
+let allTests = testList "All Tests" [
+    felizTests
+    PropHelperTests.propHelpersTests
+    DelayTests.delayTests
+]
 
-    Mocha.runTests (testSequenced allTests)
+Mocha.runTests (testSequenced allTests)
+|> ignore

@@ -21,13 +21,13 @@
         "gh-pages": "^2.2.0",
         "mocha": "^6.2.3",
         "remotedev": "^0.2.7",
-        "sass": "^1.32.4",
-        "sass-loader": "^10.1.1",
-        "source-map-loader": "^2.0.1",
-        "style-loader": "^2.0.0",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0"
+        "sass": "^1.83.0",
+        "sass-loader": "^16.0.4",
+        "source-map-loader": "^5.0.0",
+        "style-loader": "^4.0.0",
+        "webpack": "^5.97.1",
+        "webpack-cli": "^6.0.1",
+        "webpack-dev-server": "^5.2.0"
     },
     "dependencies": {
         "@inocan/rough-viz": "^1.2.0",
@@ -35,12 +35,12 @@
         "prop-types": "^15.7.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-highlight": "^0.11.1",
-        "react-markdown": "^4.3.1",
+        "react-markdown": "^8.0.7",
         "react-popover": "^0.5.10",
-        "react-select-search": "^3.0.5",
-        "recharts": "^2.0.9",
+        "react-select-search": "^3.0.10",
+        "recharts": "^2.15.0",
         "use-resize-observer": "^6.1.0",
         "use-sync-external-store": "^1.2.0"
-    }
+    },
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -1,4 +1,6 @@
-# Feliz [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz) [![Build status](https://ci.appveyor.com/api/projects/status/yqinhayy1pgfcubp/branch/master?svg=true)](https://ci.appveyor.com/project/Zaid-Ajaj/feliz/branch/master)
+# Feliz 
+[![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz) 
+[![Build](https://github.com/Zaid.Ajaj/Feliz/actions/workflows/test.yml/badge.svg)](https://github.com/Zaid.Ajaj/Feliz/actions/workflows/test.yml)
 
 A fresh retake of the React API in Fable, optimized for happiness.
 

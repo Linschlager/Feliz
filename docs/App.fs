@@ -678,35 +678,6 @@ let centeredSpinner =
         ]
     ]
 
-/// Renders a code block from markdown using react-highlight.
-/// Injects sample React components when the code block has language of the format <language>:<sample-name>
-let codeBlockRenderer' = React.functionComponent(fun (input: {| codeProps: Markdown.ICodeProperties |}) ->
-    if input.codeProps.language <> null && input.codeProps.language.Contains ":" then
-        let languageParts = input.codeProps.language.Split(':')
-        let sampleName = languageParts.[1]
-        let sampleApp =
-            samples
-            |> List.tryFind (fun (name, _) -> name = sampleName)
-            |> Option.map snd
-            |> Option.defaultValue (Html.h1 [
-                prop.style [ style.color.crimson ];
-                prop.text (sprintf "Could not find sample app '%s'" sampleName)
-            ])
-        Html.div [
-            sampleApp
-            Highlight.highlight [
-                prop.className "fsharp"
-                prop.text(input.codeProps.value)
-            ]
-        ]
-    else
-        Highlight.highlight [
-            prop.className "fsharp"
-            prop.text(input.codeProps.value)
-        ])
-
-let codeBlockRenderer (codeProps: Markdown.ICodeProperties) = codeBlockRenderer' {| codeProps = codeProps |}
-
 let renderMarkdown = React.functionComponent(fun (input: {| path: string; content: string |}) ->
     Html.div [
         prop.className [ Bulma.Content; "scrollbar" ]
@@ -726,11 +697,8 @@ let renderMarkdown = React.functionComponent(fun (input: {| path: string; conten
                 ]
 
             Markdown.markdown [
-                markdown.source input.content
+                markdown.children input.content
                 markdown.escapeHtml false
-                markdown.renderers [
-                    markdown.renderers.code codeBlockRenderer
-                ]
             ]
         ]
     ])

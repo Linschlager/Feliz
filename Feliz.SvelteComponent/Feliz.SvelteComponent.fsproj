@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Feliz" Version="1.68.0" />
-    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 
 </Project>
