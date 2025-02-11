@@ -528,7 +528,7 @@ module RTL =
             let options = Bindings.createClickOptions clickCount skipHover
 
             Bindings.userEvent.click(element, ?eventInit = eventInit, ?options = options)
-        /// Cntrl + clicks element, depending on what element is it can have different side effects.
+        /// Ctrl + clicks element, depending on what element is it can have different side effects.
         static member ctrlClick (element: #HTMLElement, ?clickCount: int, ?skipHover: bool, ?eventProperties: #IMouseEventProperty list) = 
             let eventInit = createObj !!(Option.defaultValue [] eventProperties @ (unbox [ mouseEvent.ctrlKey true ]))
             let options = Bindings.createClickOptions clickCount skipHover

@@ -3,28 +3,32 @@
   "isRoot": true,
   "tools": {
     "paket": {
-      "version": "7.0.2",
+      "version": "9.0.2",
       "commands": [
         "paket"
-      ]
+      ],
+      "rollForward": false
     },
     "fake-cli": {
-      "version": "5.20.3",
+      "version": "6.1.3",
       "commands": [
         "fake"
-      ]
+      ],
+      "rollForward": false
     },
     "fable": {
-      "version": "4.0.0-theta-018",
+      "version": "4.24.0",
       "commands": [
         "fable"
-      ]
+      ],
+      "rollForward": false
     },
     "femto": {
-      "version": "0.16.0",
+      "version": "0.21.0",
       "commands": [
         "femto"
-      ]
+      ],
+      "rollForward": false
     }
   }
 }
