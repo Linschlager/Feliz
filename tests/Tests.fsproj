@@ -6,7 +6,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
     <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
     <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />

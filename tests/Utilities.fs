@@ -13,16 +13,22 @@ type IRenderer =
     inherit IDisposable
     abstract Container : unit -> HTMLElement
 
-let renderReact (element: ReactElement) =
+let renderReact (element: ReactElement) : Async<IRenderer> = async {
     let id = Guid.NewGuid().ToString()
     let container = document.createElement("div")
     container.setAttribute("id", id)
     document.body.appendChild(container) |> ignore
     let root = ReactDOM.createRoot container
-    root.render element
-    { new IRenderer with
+    do!
+        fun _ -> root.render element
+        |> Bindings.act
+        |> Async.AwaitPromise
+
+    let renderer = { new IRenderer with
         member this.Container() = container
         member this.Dispose() = document.getElementById(id).remove() }
+    return renderer
+}
 
 let testReact name test =
     testCase name <| fun _ ->

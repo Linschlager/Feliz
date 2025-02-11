@@ -7,7 +7,7 @@ open Fable.ReactTestingLibrary
 open Fable.Core
 
 let counter = React.functionComponent(fun (props: {| initialCount: int |}) ->
-    let (count, setCount) = React.useState(props.initialCount)
+    let (count, setCount) = React.useStateWithUpdater(props.initialCount)
     Html.div [
         Html.h1 [
             prop.testId "count"
@@ -16,13 +16,13 @@ let counter = React.functionComponent(fun (props: {| initialCount: int |}) ->
 
         Html.button [
             prop.text "Increment"
-            prop.onClick (fun _ -> setCount (count + 1))
+            prop.onClick (fun _ -> setCount (fun c -> c + 1))
             prop.testId "increment"
         ]
     ])
 
 let counterWithDebugValue = React.functionComponent(fun () ->
-    let (count, setCount) = React.useState(0)
+    let (count, setCount) = React.useStateWithUpdater(0)
     React.useDebugValue(sprintf "Count is %d" count)
     Html.div [
         Html.h1 [
@@ -32,13 +32,13 @@ let counterWithDebugValue = React.functionComponent(fun () ->
 
         Html.button [
             prop.text "Increment"
-            prop.onClick (fun _ -> setCount (count + 1))
+            prop.onClick (fun _ -> setCount (fun c -> c + 1))
             prop.testId "increment"
         ]
     ])
 
 let effectOnceComponent = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) ->
-    let (count, setCount) = React.useState(0)
+    let (count, setCount) = React.useStateWithUpdater(0)
     React.useEffectOnce(fun _ -> props.effectTriggered())
     Html.div [
         Html.h1 [
@@ -48,13 +48,13 @@ let effectOnceComponent = React.functionComponent(fun (props: {| effectTriggered
 
         Html.button [
             prop.text "Increment"
-            prop.onClick (fun _ -> setCount (count + 1))
+            prop.onClick (fun _ -> setCount (fun c -> c + 1))
             prop.testId "increment"
         ]
     ])
 
 let useEffectEveryRender = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) ->
-    let (count, setCount) = React.useState(0)
+    let (count, setCount) = React.useStateWithUpdater(0)
     React.useEffect(fun _ -> props.effectTriggered())
     Html.div [
         Html.h1 [
@@ -64,7 +64,7 @@ let useEffectEveryRender = React.functionComponent(fun (props: {| effectTriggere
 
         Html.button [
             prop.text "Increment"
-            prop.onClick (fun _ -> setCount (count + 1))
+            prop.onClick (fun _ -> setCount (fun c -> c + 1))
             prop.testId "increment"
         ]
     ])
@@ -75,7 +75,7 @@ let portal = React.functionComponent(fun (props: {| child: ReactElement; id: str
 )
 
 let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) ->
-    let (count, setCount) = React.useState(0)
+    let (count, setCount) = React.useStateWithUpdater(0)
     React.useLayoutEffect(fun _ -> props.effectTriggered())
     Html.div [
         Html.h1 [
@@ -85,7 +85,7 @@ let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTr
 
         Html.button [
             prop.text "Increment"
-            prop.onClick (fun _ -> setCount (count + 1))
+            prop.onClick (fun _ -> setCount (fun c -> c + 1))
             prop.testId "increment"
         ]
     ])
@@ -115,11 +115,11 @@ let callbackRefButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
     ])
 
 let callbackRef = React.functionComponent(fun () ->
-    let count,setCount = React.useState 1
+    let count,setCount = React.useStateWithUpdater 1
     let resultText,setResultText = React.useState ""
 
     React.useEffect((fun () ->
-        let interval = JS.setInterval(fun () -> setCount(count + 1)) 1000
+        let interval = JS.setInterval(fun () -> setCount(fun c -> c + 1)) 1000
         React.createDisposable(fun () -> JS.clearInterval(interval))
     ), [| count :> obj |])
 
@@ -244,9 +244,9 @@ let funcCompTest = React.functionComponent(fun (input: {| count: int |}) ->
     ])
 
 let funcCompTestDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
-    React.useEffectOnce(fun () -> setCount (count + 1))
+    React.useEffectOnce(fun () -> setCount (fun c -> c + 1))
 
     Html.div [
         funcCompTest {| count = count |}
@@ -265,9 +265,9 @@ let funcCompTestWithKey = React.functionComponent((fun (input: {| count: int |})
     ]), funcCompWithKey)
 
 let funcCompTestWithKeyDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
-    React.useEffectOnce(fun () -> setCount (count + 1))
+    React.useEffectOnce(fun () -> setCount (fun c -> c + 1))
 
     Html.div [
         funcCompTestWithKey {| count = count |}
@@ -282,9 +282,9 @@ let memoCompTest = React.memo(fun (input: {| count: int |}) ->
     ])
 
 let memoCompTestDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
-    React.useEffectOnce(fun () -> setCount (count + 1))
+    React.useEffectOnce(fun () -> setCount (fun c -> c + 1))
 
     Html.div [
         memoCompTest {| count = count |}
@@ -299,9 +299,9 @@ let memoCompTestWithKey = React.memo((fun (input: {| count: int |}) ->
     ]), funcCompWithKey)
 
 let memoCompTestWithKeyDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
-    React.useEffectOnce(fun () -> setCount (count + 1))
+    React.useEffectOnce(fun () -> setCount (fun c -> c + 1))
 
     Html.div [
         memoCompTestWithKey {| count = count |}
@@ -318,9 +318,9 @@ let memoCompTestAreEqual = React.memo((fun (input: {| count: int |}) ->
     ]), areEqual = memoCompareEqual)
 
 let memoCompTestAreEqualDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
-    React.useEffectOnce(fun () -> setCount (count + 1))
+    React.useEffectOnce(fun () -> setCount (fun c -> c + 1))
 
     Html.div [
         memoCompTestAreEqual {| count = count |}
@@ -343,12 +343,12 @@ let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
     ]), memoCompWithKey, areEqual = memoCompAreEqual)
 
 let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
-    let count,setCount = React.useState 0
+    let count,setCount = React.useStateWithUpdater 0
 
     React.useEffect(fun () ->
         async {
             do! Async.Sleep 25
-            if count < 10 then setCount (count + 1)
+            if count < 10 then setCount (fun c -> c + 1)
         } |> Async.StartImmediate
     )
 
@@ -525,14 +525,14 @@ module RefDispose =
         let disposedCountRef = React.useRef 0
         let disposeElement,setDisposeElement = React.useState false
 
-        let setDisposedCount =
+        let updateDisposedCount =
             React.useCallbackRef(fun () ->
                 disposedCountRef.current <- disposedCountRef.current + 1
                 setDisposedCount(disposedCountRef.current)
             )
 
-        let disposalOne = React.useRef(Some { new System.IDisposable with member _.Dispose () = setDisposedCount() })
-        let disposalTwo = React.useRef(Some { new System.IDisposable with member _.Dispose () = setDisposedCount() })
+        let disposalOne = React.useRef(Some { new System.IDisposable with member _.Dispose () = updateDisposedCount() })
+        let disposalTwo = React.useRef(Some { new System.IDisposable with member _.Dispose () = updateDisposedCount() })
 
         let multipleDispose = React.createDisposable(disposalOne, disposalTwo)
 
@@ -610,8 +610,8 @@ module UseElmish =
 
 let felizTests = testList "Feliz Tests" [
 
-    testCase "Html elements can be rendered" <| fun _ ->
-        use renderer = renderReact(Html.div [
+    testCaseAsync "Html elements can be rendered" <| async {
+        use! renderer = renderReact(Html.div [
             Html.h1 [
                 prop.testId "header"
                 prop.text "Hello world"
@@ -620,6 +620,7 @@ let felizTests = testList "Feliz Tests" [
 
         let container = renderer.Container()
         Expect.equal "Hello world" container.innerText "The content is correct"
+    }
 
     testReact "RTL works with Feliz" <| fun _ ->
         let render = RTL.render(Html.div [
@@ -663,15 +664,20 @@ let felizTests = testList "Feliz Tests" [
         Expect.isTrue allValid "Parsing worked in all cases where the date was valid"
         Expect.isTrue allInvalid "Parsing did not work in all cases where the date was invalid"
 
-    testReact "React function component works: counter example" <| fun _ ->
+    testReactAsync "React function component works: counter example" <| async {
         let render = RTL.render(counter {| initialCount = 10 |})
         let count = render.getByTestId "count"
         let increment = render.getByTestId "increment"
-        Expect.equal "10" count.innerText "Initial count is rendered"
-        RTL.userEvent.click(increment)
-        Expect.equal "11" count.innerText "After one click, the count becomes 11"
-        RTL.userEvent.click(increment)
-        Expect.equal "12" count.innerText "After another click, the count becomes 12"
+        Expect.equal count.innerText "10" "Initial count is rendered"
+
+        RTL.userEvent.click increment
+        Expect.equal count.innerText "11" "After one click, the count becomes 11"
+        
+        console.log count
+
+        RTL.userEvent.click increment
+        Expect.equal count.innerText "12" "After another click, the count becomes 12"
+    }
 
     testReact "React function component works: counter example with debug value" <| fun _ ->
         let render = RTL.render(counterWithDebugValue())
@@ -695,7 +701,7 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "10" count.innerText "Initial count is rendered"
         Expect.equal 1 portalContainer.children.length "Portal container contains component"
 
-    testReact "React.useEffectOnce(unit -> unit) executes onece" <| fun _ ->
+    testReact "React.useEffectOnce(unit -> unit) executes once" <| fun _ ->
         let mutable effectCount = 0
         let render = RTL.render(effectOnceComponent {| effectTriggered = fun () -> effectCount <- effectCount + 1 |})
         let count = render.getByTestId "count"
@@ -714,21 +720,21 @@ let felizTests = testList "Feliz Tests" [
         let render = RTL.render(useEffectEveryRender {| effectTriggered = fun () -> effectCount <- effectCount + 1 |})
         let count = render.getByTestId "count"
         let increment = render.getByTestId "increment"
-        Expect.equal 1 effectCount "Effect has been been executed when the component has been rendered"
-        Expect.equal "0" count.innerText "Count has initial value of zero"
+        Expect.equal effectCount 1 "Effect has been been executed when the component has been rendered"
+        Expect.equal count.innerText "0" "Count has initial value of zero"
         RTL.userEvent.click(increment)
         do! Async.Sleep 100
 
-        Expect.equal "1" count.innerText "Component has been updated/re-rendered"
-        Expect.equal 2 effectCount "Effect count has increased to two"
+        Expect.equal count.innerText "1" "Component has been updated/re-rendered"
+        Expect.equal effectCount 2 "Effect count has increased to two"
         RTL.userEvent.click(increment)
 
         do! Async.Sleep 100
-        Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
-        Expect.equal 3 effectCount "Effect count has increased three"
+        Expect.equal count.innerText "2" "Component has been updated/re-rendered again"
+        Expect.equal effectCount 3 "Effect count has increased three"
     }
 
-    testReact "React.useLayoutEffect(unit -> unit) executes on each (re)render" <| fun _ ->
+    testReactAsync "React.useLayoutEffect(unit -> unit) executes on each (re)render" <| async {
         let mutable effectCount = 0
         let render = RTL.render(useLayoutEffectEveryRender {| effectTriggered = fun () -> effectCount <- effectCount + 1 |})
         let count = render.getByTestId "count"
@@ -736,11 +742,16 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal 1 effectCount "Effect has been been executed when the component has been rendered"
         Expect.equal "0" count.innerText "Count has initial value of zero"
         RTL.userEvent.click(increment)
+        do! Async.Sleep 100
+        
         Expect.equal "1" count.innerText "Component has been updated/re-rendered"
         Expect.equal 2 effectCount "Effect count has increased to two"
         RTL.userEvent.click(increment)
+        do! Async.Sleep 100
+        
         Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
         Expect.equal 3 effectCount "Effect count has increased three"
+    }
 
     testReact "Focusing input element works with React refs" <| fun _ ->
         let render = RTL.render(focusInputExample())
@@ -1208,12 +1219,11 @@ let felizTests = testList "Feliz Tests" [
 #endif
 ]
 
-[<EntryPoint>]
-let main (args: string []) =
-    let allTests = testList "All Tests" [
-        felizTests
-        PropHelperTests.propHelpersTests
-        DelayTests.delayTests
-    ]
+let allTests = testList "All Tests" [
+    felizTests
+    PropHelperTests.propHelpersTests
+    DelayTests.delayTests
+]
 
-    Mocha.runTests (testSequenced allTests)
+Mocha.runTests (testSequenced allTests)
+|> ignore

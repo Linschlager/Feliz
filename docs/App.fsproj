@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
-    <ProjectReference Include="..\Feliz.UseListener\Feliz.UseListener.fsproj" />
+    <ProjectReference Include="..\Feliz.Listeners\Feliz.Listeners.fsproj" />
     <ProjectReference Include="..\Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj" />
     <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
@@ -16,8 +16,6 @@
     <ProjectReference Include="..\Feliz.RoughViz\Feliz.RoughViz.fsproj" />
     <ProjectReference Include="..\Feliz.SelectSearch\Feliz.SelectSearch.fsproj" />
     <ProjectReference Include="..\Feliz.Kawaii\Feliz.Kawaii.fsproj" />
-
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Feliz.Router\Router.fs" />
@@ -61,9 +59,6 @@
     <None Include="paket.references" />
   </ItemGroup>
   <PropertyGroup>
-    <NpmDependencies>
-      <NpmPackage Name="react-highlight" Version="&gt;= 0.11.1" />
-    </NpmDependencies>
   </PropertyGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

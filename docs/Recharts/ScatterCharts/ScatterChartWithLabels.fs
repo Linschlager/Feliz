@@ -41,7 +41,7 @@ let chart = React.functionComponent(fun () -> [
                 scatter.fill "#8884d8"
                 scatter.children [
                     Recharts.labelList [
-                        labelList.dataKey (fun point -> point.x)
+                        labelList.dataKey (fun point -> string<int> point.x)
                     ]
                 ]
             ]

@@ -12,7 +12,7 @@ module Bindings =
     type Matcher =
         U3<string, Regex, string * HTMLElement -> bool>
     
-    let act : (unit -> unit) -> unit  = import "act" "@testing-library/react"
+    let act : (unit -> unit) -> JS.Promise<unit>  = import "act" "@testing-library/react"
 
     let configure : IConfigureOptions -> unit = import "configure" "@testing-library/react"
 
